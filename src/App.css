@@ -57,7 +57,7 @@ option {
 }
 
 body {
-  background: linear-gradient(to bottom, #77b1e5, #9acbed, #c5e5f5, #f5f5f5);
+  background-image: linear-gradient(to bottom right, #87CEFA, #FFC0CB);
   height: 100vh;
   margin: 0;
   padding: 0;
