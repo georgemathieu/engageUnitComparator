@@ -6,11 +6,18 @@ import { CharacterSelect } from './CharacterSelect';
 import { ClassSelect } from './ClassSelect';
 
 
+interface EntityListProps {
+  onChange: (entityTotal: Entity) => void;
+}
+
 // Define the component
-function EntityList() {
+function EntityList(props: EntityListProps) {
+  const { onChange } = props;
   const [entities, setEntities] = useState<Entity[]>([]);
 
-  getEntities().then(data => setEntities(data));
+  useEffect(() => {
+    getEntities().then(data => setEntities(data));
+  }, []);
 
   const characters = entities.filter((entity) => entity.isCharacter);
   const classes = entities.filter((entity) => !entity.isCharacter);
@@ -18,12 +25,33 @@ function EntityList() {
   const chapters = [...Array(26).keys()].map((i) => i + 1);
   const [selectedChapter, setSelectedChapter] = useState<string | undefined>("");
 
-  const defaultCharacter : Entity = characters[0];
-  const defaultClass : Entity = classes[0];
+  const defaultCharacter: Entity = characters[0];
+  const defaultClass: Entity = classes[0];
 
   const [selectedCharacter, setSelectedCharacter] = useState<Entity | undefined>(defaultCharacter);
   const [shownCharacters, setShownCharacters] = useState<Entity[]>(characters);
   const [selectedClass, setSelectedClass] = useState<Entity | undefined>(defaultClass);
+
+
+
+  // Call onChange every time selectedCharacter, selectedClass, or selectedChapter changes
+  useEffect(() => {
+    const entiteTotal: Entity = {
+      name: "TOTAL",
+      isCharacter: true,
+      chapter: 1,
+      hp: (selectedClass?.hp || 0) + (selectedCharacter?.hp || 0),
+      str: (selectedClass?.str || 0) + (selectedCharacter?.str || 0),
+      mag: (selectedClass?.mag || 0) + (selectedCharacter?.mag || 0),
+      dex: (selectedClass?.dex || 0) + (selectedCharacter?.dex || 0),
+      spd: (selectedClass?.spd || 0) + (selectedCharacter?.spd || 0),
+      def: (selectedClass?.def || 0) + (selectedCharacter?.def || 0),
+      res: (selectedClass?.res || 0) + (selectedCharacter?.res || 0),
+      lck: (selectedClass?.lck || 0) + (selectedCharacter?.lck || 0),
+      bld: (selectedClass?.bld || 0) + (selectedCharacter?.bld || 0)
+    }
+    onChange(entiteTotal);
+  }, [selectedCharacter, selectedClass, selectedChapter, onChange]);
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -80,7 +108,7 @@ function EntityList() {
           </tr>
 
           <tr>
-            <td>{"TOTAL"}</td>
+            <td>TOTAL</td>
             <td>{(selectedClass?.hp || 0) + (selectedCharacter?.hp || 0)}</td>
             <td>{(selectedClass?.str || 0) + (selectedCharacter?.str || 0)}</td>
             <td>{(selectedClass?.mag || 0) + (selectedCharacter?.mag || 0)}</td>

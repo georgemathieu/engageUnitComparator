@@ -1,5 +1,6 @@
 import './App.css';
 import EntityList from './components/EntityList.tsx';
+import UnitComparator from './components/UnitComparator.tsx';
 
 
 
@@ -8,8 +9,7 @@ function App() {
     <div style={{ textAlign: "center" }}>
       <h1>FE:Engage Stats comparator</h1>
       <div className="App">
-        <EntityList />
-        <EntityList />
+        <UnitComparator />
       </div>
     </div>
 
