@@ -7,7 +7,7 @@ interface ClassSelectProps {
     onSelect: (classe: Entity | undefined) => void;
 }
 
-function ClassSelect(props: ClassSelectProps) {
+export function ClassSelect(props: ClassSelectProps) {
     const { classes, onSelect } = props;
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -31,5 +31,3 @@ function ClassSelect(props: ClassSelectProps) {
         </div>
     );
 }
-
-export default ClassSelect;

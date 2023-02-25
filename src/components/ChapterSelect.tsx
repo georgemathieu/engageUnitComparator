@@ -5,10 +5,10 @@ interface CharacterSelectProps {
     chapters: number[];
     characters: Entity[];
     onSelect: (chapter: string | undefined) => void;
-    updateCharacters: (chapter: Entity[] | undefined) => void;
+    updateCharacters: (chapter: Entity[]) => void;
 }
 
-function ChapterSelect(props: CharacterSelectProps) {
+export function ChapterSelect(props: CharacterSelectProps) {
     const { chapters, characters, onSelect, updateCharacters } = props;
 
     const handleChapterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -31,5 +31,3 @@ function ChapterSelect(props: CharacterSelectProps) {
         </div>
     );
 }
-
-export default ChapterSelect;

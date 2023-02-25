@@ -6,7 +6,7 @@ interface CharacterSelectProps {
     onSelect: (character: Entity | undefined) => void;
 }
 
-function CharacterSelect(props: CharacterSelectProps) {
+export function CharacterSelect(props: CharacterSelectProps) {
     const { characters, onSelect } = props;
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -30,5 +30,3 @@ function CharacterSelect(props: CharacterSelectProps) {
         </div>
     );
 }
-
-export default CharacterSelect;

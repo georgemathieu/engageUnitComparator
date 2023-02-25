@@ -13,19 +13,18 @@ export interface Entity {
     res: number;
     lck: number;
     bld: number;
-  }
-  
-  export function getEntities(): Promise<Entity[]> {
+}
+
+export function getEntities(): Promise<Entity[]> {
     return fetch('entities.json', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
     })
-      .then(response => response.json())
-      .catch(error => {
-        console.error(error);
-        return [];
-      });
-  }
-  
+        .then(response => response.json())
+        .catch(error => {
+            console.error(error);
+            return [];
+        });
+};

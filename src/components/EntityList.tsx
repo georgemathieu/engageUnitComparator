@@ -1,42 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import ChapterSelect from './ChapterSelect.tsx';
-import CharacterSelect from './CharacterSelect.tsx';
-import ClassSelect from './ClassSelect.tsx';
-
-// Define the Entity type
-interface Entity {
-  name: string;
-  isCharacter: boolean;
-  chapter: number;
-  hp: number;
-  str: number;
-  mag: number;
-  dex: number;
-  spd: number;
-  def: number;
-  res: number;
-  lck: number;
-  bld: number;
-}
+import { getEntities, Entity } from '../model/EntityModel';
+import { ChapterSelect } from './ChapterSelect';
+import { CharacterSelect } from './CharacterSelect';
+import { ClassSelect } from './ClassSelect';
 
 
 // Define the component
-function EntityList2() {
+function EntityList() {
   const [entities, setEntities] = useState<Entity[]>([]);
 
-  useEffect(() => {
-    fetch('entities.json'
-    , {
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-    })
-      .then(response => response.json())
-      .then(data => setEntities(data))
-      .catch(error => console.log(error));
-  }, []);
+  getEntities().then(data => setEntities(data));
 
   const characters = entities.filter((entity) => entity.isCharacter);
   const classes = entities.filter((entity) => !entity.isCharacter);
@@ -48,7 +22,7 @@ function EntityList2() {
   const defaultClass : Entity = classes[0];
 
   const [selectedCharacter, setSelectedCharacter] = useState<Entity | undefined>(defaultCharacter);
-  const [shownCharacters, setShownCharacters] = useState<Entity[] | undefined>(characters);
+  const [shownCharacters, setShownCharacters] = useState<Entity[]>(characters);
   const [selectedClass, setSelectedClass] = useState<Entity | undefined>(defaultClass);
 
   return (
@@ -125,4 +99,4 @@ function EntityList2() {
   );
 }
 
-export default EntityList2;
+export default EntityList;
