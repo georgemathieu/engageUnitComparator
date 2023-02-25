@@ -1,5 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import ChapterSelect from './ChapterSelect.tsx';
+import CharacterSelect from './CharacterSelect.tsx';
+import ClassSelect from './ClassSelect.tsx';
 
 // Define the Entity type
 interface Entity {
@@ -19,7 +22,7 @@ interface Entity {
 
 
 // Define the component
-function EntityList() {
+function EntityList2() {
   const [entities, setEntities] = useState<Entity[]>([]);
 
   useEffect(() => {
@@ -35,73 +38,27 @@ function EntityList() {
       .catch(error => console.log(error));
   }, []);
 
-  var characters = entities.filter((entity) => entity.isCharacter);
+  const characters = entities.filter((entity) => entity.isCharacter);
   const classes = entities.filter((entity) => !entity.isCharacter);
 
   const chapters = [...Array(26).keys()].map((i) => i + 1);
-  const [selectedChapter, setSelectedChapter] = useState(""+1);
+  const [selectedChapter, setSelectedChapter] = useState<string | undefined>("");
 
   const defaultCharacter : Entity = characters[0];
   const defaultClass : Entity = classes[0];
 
   const [selectedCharacter, setSelectedCharacter] = useState<Entity | undefined>(defaultCharacter);
+  const [shownCharacters, setShownCharacters] = useState<Entity[] | undefined>(characters);
   const [selectedClass, setSelectedClass] = useState<Entity | undefined>(defaultClass);
-
-  
-  const handleChapterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedChapter(e.target.value);
-    characters = entities.filter((entity) => entity.isCharacter && entity.chapter <= parseInt(e.target.value));
-  };
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedEntityName = event.target.value;
-    const foundEntity = entities.find((entity) => entity.name === selectedEntityName);
-    if (foundEntity?.isCharacter) {
-      setSelectedCharacter(foundEntity);
-    } else {
-      setSelectedClass(foundEntity);
-    }
-  };
-
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Stats comparator</h1>
+
       <div style={{ display: "flex", justifyContent: "center" }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-          <label htmlFor="characters" style={{ marginRight: '0.3rem', marginBottom: '0.4rem', fontSize: "1.2rem"  }}>
-            Hero
-          </label>
-          <select id="characters" onChange={handleSelectChange} style={{ marginBottom: "1rem" }}>
-            {characters
-              .filter((character) => character.chapter <= parseInt(selectedChapter))
-              .map((character) => (
-                <option key={character.name} value={character.name}>
-                  {character.name}
-                </option>
-              ))}
-          </select>
-          <label htmlFor="classes" style={{ marginLeft: '1rem', marginRight: '0.3rem', marginBottom: '0.4rem', fontSize: "1.2rem"   }}>
-            Class
-          </label>
-          <select id="classes" onChange={handleSelectChange} style={{ marginBottom: "1rem" }}>
-            {classes.map((classe) => (
-              <option key={classe.name} value={classe.name}>
-                {classe.name}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="chapter" style={{ marginLeft: '1rem', marginRight: '0.3rem', marginBottom: '0.4rem', fontSize: "1.2rem"   }}>
-            Chapter
-          </label>
-          <select id="chapter" value={selectedChapter} onChange={handleChapterChange} style={{ marginBottom: "1rem" }}>
-            <option value=""></option>
-            {chapters.map((chapter) => (
-              <option key={chapter} value={chapter}>
-                {chapter}
-              </option>
-            ))}
-          </select>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <CharacterSelect onSelect={setSelectedCharacter} characters={shownCharacters} />
+          <ClassSelect onSelect={setSelectedClass} classes={classes} />
+          <ChapterSelect onSelect={setSelectedChapter} updateCharacters={setShownCharacters} chapters={chapters} characters={characters} />
         </div>
 
       </div>
@@ -168,4 +125,4 @@ function EntityList() {
   );
 }
 
-export default EntityList;
+export default EntityList2;
