@@ -54,7 +54,7 @@ function EntityList(props: EntityListProps) {
   }, [selectedCharacter, selectedClass, selectedChapter, onChange]);
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center" }} className={"entityList"}>
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>

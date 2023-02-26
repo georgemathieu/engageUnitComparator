@@ -74,3 +74,13 @@ body {
 .positive, .negative {
   font-weight: bold;
 }
+
+.entityList {
+  margin-top: 0.5em;
+}
+
+.comparatorTable {
+  background-color: hsl(0, 0%, 100%);
+  margin-top: 2.5em;
+  margin-bottom: 2.2em;
+}

@@ -38,10 +38,10 @@ function UnitComparator() {
     return (
         <div style={{ alignItems: 'center' }}>
             <EntityList onChange={(entity) => handleEntityListChange(entity, true)} />
-            <table style={{ margin: "auto" }}>
+            <table className={"comparatorTable"}>
                 <tbody>
                     <tr>
-                        <td>{""}</td>
+                        <td>{"Diff"}</td>
                         <td className={diffEntity?.hp > 0 ? "positive" : "negative"}>{diffEntity?.hp}</td>
                         <td className={diffEntity?.str > 0 ? "positive" : "negative"}>{diffEntity?.str}</td>
                         <td className={diffEntity?.mag > 0 ? "positive" : "negative"}>{diffEntity?.mag}</td>
